@@ -109,7 +109,7 @@ def count_softmax(m, x, y):
 
 
 def count_avgpool(m, x, y):
-    total_add = torch.prod(torch.Tensor([m.kernel_size]))
+    total_add = torch.prod(torch.Tensor([m.kernel_size])) - 1
     total_div = 1
     kernel_ops = total_add + total_div
     num_elements = y.numel()
@@ -120,7 +120,7 @@ def count_avgpool(m, x, y):
 
 def count_adap_avgpool(m, x, y):
     kernel = torch.Tensor([*(x[0].shape[2:])]) // torch.Tensor(list((m.output_size,))).squeeze()
-    total_add = torch.prod(kernel)
+    total_add = torch.prod(kernel) - 1
     total_div = 1
     kernel_ops = total_add + total_div
     num_elements = y.numel()
@@ -131,9 +131,12 @@ def count_adap_avgpool(m, x, y):
 
 def count_linear(m, x, y):
     # per output element
-    total_mul = m.in_features
-    total_add = m.in_features - 1
+    bias_ops = 1 if m.bias is not None else 0
     num_elements = y.numel()
-    total_ops = (total_mul + total_add) * num_elements
+    total_ops=num_elements * (m.in_features+bias_ops)
+    #total_mul = m.in_features
+    #total_add = m.in_features - 1
+    #num_elements = y.numel()
+    #total_ops = (total_mul + total_add) * num_elements
 
     m.total_ops = torch.Tensor([int(total_ops)])
