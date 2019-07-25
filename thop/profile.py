@@ -97,6 +97,6 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     for handler in handler_collection:
         handler.remove()
 
-    print('The Total Flops:',total_flops)
+    print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
     return total_ops, total_params
