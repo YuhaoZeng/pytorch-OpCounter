@@ -86,7 +86,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             continue
         total_ops += m.total_ops
         total_params += m.total_params
-        print('The type of this layer:',m.type())
+        print('The type of this layer:',type(m))
         print('The parameters of this layer:',m.total_params)
         
     total_ops = total_ops.item()
@@ -97,4 +97,6 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     for handler in handler_collection:
         handler.remove()
 
+    print('The Total Flops:',total_flops)
+    print('The Total parameters:',total_params)
     return total_ops, total_params
