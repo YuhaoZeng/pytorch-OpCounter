@@ -7,7 +7,7 @@
     
 * Using GitHub (always latest)
     
-    `pip install --upgrade git+https://github.com/Lyken17/pytorch-OpCounter.git`
+    `pip install --upgrade git+https://github.com/YuhaoZeng/pytorch-OpCounter.git`
     
 ## How to use 
 * Basic usage 
