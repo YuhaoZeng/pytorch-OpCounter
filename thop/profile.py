@@ -87,7 +87,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         total_ops += m.total_ops
         total_params += m.total_params
         print('The type of this layer:',type(m))
-        print('The parameters of this layer:',m.total_params)
+        print('The parameters of this layer:',int(m.total_params))
         
     total_ops = total_ops.item()
     total_params = total_params.item()
