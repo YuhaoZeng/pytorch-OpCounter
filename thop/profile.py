@@ -81,13 +81,16 @@ def profile(model, inputs, custom_ops=None, verbose=True):
 
     total_ops = 0
     total_params = 0
+    layer_count = 0
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
             continue
+        layer_count = layer_count + 1
         total_ops += m.total_ops
         total_params += m.total_params
-        print('The type of this layer:',type(m))
-        print('The parameters of this layer:',int(m.total_params))
+        print('The No.%d layer:',layer_count)
+        print('The type of this layer:%s, The parameters of this layer:%d',type(m),int(m.total_params))
+
         
     total_ops = total_ops.item()
     total_params = total_params.item()
