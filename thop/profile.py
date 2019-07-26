@@ -100,6 +100,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         
     total_ops = total_ops.item()
     total_params = total_params.item()
+    total_memory = total_memory.item()
 
     # reset model to original status
     model.train(training)
