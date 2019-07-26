@@ -124,4 +124,4 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
     print('The Total Memory:',total_memory)
-    return total_ops, total_params,ops_list,memeory_list,layer_type_list
+    return total_ops, total_params,ops_list,memory_list,layer_type_list
