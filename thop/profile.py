@@ -88,7 +88,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         layer_count = layer_count + 1
         total_ops += m.total_ops
         total_params += m.total_params
-        layer_out = int(m.out_channels) if hasattr(m,out_channels) else 0
+        layer_out = int(m.out_channels) if m.out_channels is not None else 0
         
         print('The No.%d layer:' % layer_count)
         print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
