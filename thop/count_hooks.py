@@ -30,35 +30,37 @@ def count_convNd(m, x, y):
     #cout,out_h,out_w = y.size()[1:]
     #mread = batch_size * (x.size()[1:].numel() + num_params(m))
     #mwrite = batch_size * cout * out_h * out_w
-    mread = x.element() + num_params
+    #mread = x.element() + num_params
+    mread = num_params
     mwrite = ouput_elements
     
     m.total_memory = torch.Tensor([int(mread+mwrite)])
 
-def count_conv2d(m, x, y):
-    x = x[0]
+#
+#def count_conv2d(m, x, y):
+#    x = x[0]
 
-    cin = m.in_channels
-    cout = m.out_channels
-    kh, kw = m.kernel_size
-    batch_size = x.size()[0]
+#    cin = m.in_channels
+#    cout = m.out_channels
+#    kh, kw = m.kernel_size
+#    batch_size = x.size()[0]
 
-    out_h = y.size(2)
-    out_w = y.size(3)
+#    out_h = y.size(2)
+#    out_w = y.size(3)
 
     # ops per output element
     # kernel_mul = kh * kw * cin
     # kernel_add = kh * kw * cin - 1
-    kernel_ops = multiply_adds * kh * kw
-    bias_ops = 1 if m.bias is not None else 0
-    ops_per_element = kernel_ops + bias_ops
+#    kernel_ops = multiply_adds * kh * kw
+#    bias_ops = 1 if m.bias is not None else 0
+#    ops_per_element = kernel_ops + bias_ops
 
     # total ops
     # num_out_elements = y.numel()
-    output_elements = batch_size * out_w * out_h * cout
-    total_ops = output_elements * ops_per_element * cin // m.groups
+#    output_elements = batch_size * out_w * out_h * cout
+#    total_ops = output_elements * ops_per_element * cin // m.groups
 
-    m.total_ops = torch.Tensor([int(total_ops)])
+#    m.total_ops = torch.Tensor([int(total_ops)])
 
 
 def count_convtranspose2d(m, x, y):
@@ -97,7 +99,8 @@ def count_convtranspose2d(m, x, y):
     #mread = batch_size * (x.size()[1:].numel() + num_patams(m))
     #mwrite = batch_size * cout * out_h * out_w
     
-    mread = x.nelement() + num_params(m)
+    #mread = x.nelement() + num_params(m)
+    mread = num_params(m)
     mwrite = output_elements
     m.total_memory = torch.Tensor([int(mread+mwrite)])
 
@@ -116,10 +119,10 @@ def count_bn(m, x, y):
     #mread = batch_size * (x.size()[1:].numel() + 2 * in_c)
     #mwrite = x.size().numel()
     
-    mread = nelements
+    #mread = nelements
     mwrite = nelements
     
-    m.total_memory = torch.Tensor([int(mread+mwrite)])
+    m.total_memory = torch.Tensor([int(mwrite)])
 
 
 def count_relu(m, x, y):
@@ -132,10 +135,10 @@ def count_relu(m, x, y):
     
     #
     #batch_size = x.size()[0]
-    mread = x.numel()
+    #mread = x.numel()
     mwrite = y.numel()
     
-    m.total_memory = torch.Tensor([int(mread+mwrite)])
+    m.total_memory = torch.Tensor([int(mwrite)])
 
 
 def count_softmax(m, x, y):
@@ -153,10 +156,10 @@ def count_softmax(m, x, y):
     #
     #batch_size = x.size()[0]
     
-    mread = nfeatures
+    #mread = nfeatures
     mwrite = nfeatures
     
-    m.total_memory = torch.Tensor([int(mread+mwrite)])
+    m.total_memory = torch.Tensor([int(mwrite)])
 
 
 
@@ -169,10 +172,10 @@ def count_avgpool(m, x, y):
 
     m.total_ops = torch.Tensor([int(total_ops)])
     
-    mread = total_add+1
+    #mread = total_add+1
     mwrite = num_elements
 
-    m.total_memory = torch.Tensor([int(mread+mwrite)])
+    m.total_memory = torch.Tensor([int(mwrite)])
 
 
 def count_adap_avgpool(m, x, y):
@@ -212,7 +215,7 @@ def count_linear(m, x, y):
     #batch_size = x.size()[0]
     
     
-    mread = num_elements + num_params(m)
+    mread = num_params(m)
     mwrite = num_elements
 
     m.total_memory = torch.Tensor([int(mread+mwrite)])
