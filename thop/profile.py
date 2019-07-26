@@ -44,7 +44,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     ops_list=[]
     memory_list=[]
     layer_type_list=[]
-    #layer_count = [1]
+    layer_count = 0
  
 
 
@@ -108,7 +108,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
             continue
-        layer_count = layer_count + 1
+        #layer_count = layer_count + 1
         total_ops += m.total_ops
         total_params += m.total_params
         total_memory += m.total_memory
