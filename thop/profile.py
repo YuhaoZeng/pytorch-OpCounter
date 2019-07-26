@@ -44,12 +44,13 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         if len(list(m.children())) > 0:
             return
 
-        if hasattr(m, "total_ops") or hasattr(m, "total_params"):
-            logger.warning("Either .total_ops or .total_params is already defined in %s." 
+        if hasattr(m, "total_ops") or hasattr(m, "total_params") or hasattr(m,"total_memory"):
+            logger.warning("Either .total_ops or .total_params or .total_memory is already defined in %s." 
                            "Be careful, it might change your code's behavior." % str(m))
 
         m.register_buffer('total_ops', torch.zeros(1))
         m.register_buffer('total_params', torch.zeros(1))
+        m.register_buffer('total_memory', torch.zeros(1))
 
         for p in m.parameters():
             m.total_params += torch.Tensor([p.numel()])
@@ -88,10 +89,12 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         layer_count = layer_count + 1
         total_ops += m.total_ops
         total_params += m.total_params
+        total_memory += m.total_memory
         layer_out = int(m.out_features) if hasattr(m,'out_features') else 0
         
         print('The No.%d layer:' % layer_count)
         print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
+        print('The memory of this layer:%d' % int(m.total_memory))
 
         
     total_ops = total_ops.item()
@@ -106,4 +109,5 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     #total_params = clever_format(total_params)
     print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
+    print('The Total Memory:',total_memory)
     return total_ops, total_params
