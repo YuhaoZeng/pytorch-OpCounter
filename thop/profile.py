@@ -82,6 +82,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
 
     total_ops = 0
     total_params = 0
+    total_memory = 0
     layer_count = 0
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
