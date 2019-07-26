@@ -44,7 +44,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     ops_list=[]
     memory_list=[]
     layer_type_list=[]
-    layer_count = 0
+    layer_count = [0]
  
 
 
@@ -80,11 +80,11 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             handler_collection.append(handler)
         
         #layer_count.append(1)
-        layer_count = layer_count + 1 
+        layer_count = layer_count[0]+ 1 
         ops_list.append(m.total_ops.item())
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
-        print('{0:8}{1:15}{2:15}{3:15}{4:15}'.format(layer_count,str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
+        print('{0:8}{1:15}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
 
 
     # original_device = model.parameters().__next__().device
