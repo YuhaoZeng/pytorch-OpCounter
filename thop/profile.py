@@ -107,7 +107,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         #print('The No.%d layer:' % layer_count)
         #print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
         #print('The memory of this layer:%d' % int(m.total_memory))
-        print('{0:8}{1:20}{2:15}{3:15}{4:15}'.format(layer_count,type(m),m.total_params,m.total_memory,m.total_ops))
+        print('{0:8}{1:20}{2:15}{3:15}{4:15}'.format(layer_count,'''type(m),'''m.total_params,m.total_memory,m.total_ops)."100")
 
         
     total_ops = total_ops.item()
