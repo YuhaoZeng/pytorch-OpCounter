@@ -212,7 +212,7 @@ def count_linear(m, x, y):
     #batch_size = x.size()[0]
     
     
-    mread = x.size()[1:].numel() + num_params(m)
+    mread = num_elements + num_params(m)
     mwrite = num_elements
 
     m.total_memory = torch.Tensor([int(mread+mwrite)])
