@@ -100,9 +100,9 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         total_memory += m.total_memory
         layer_out = int(m.out_features) if hasattr(m,'out_features') else 0
         
-        ops_list.append(total_ops)
-        memory_list.append(total_params)
-        layer_type_list.append(layer_type_list)
+        ops_list.append(m.total_ops.item())
+        memory_list.append(m.total_params.itme())
+        layer_type_list.append(m.layer_type_list.item())
         
         #print('The No.%d layer:' % layer_count)
         #print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
