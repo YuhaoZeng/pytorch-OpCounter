@@ -99,7 +99,9 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     model.train(training)
     for handler in handler_collection:
         handler.remove()
-
+    
+    total_ops = clever_format(total_ops)
+    total_params = clever_format(total_params)
     print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
     return total_ops, total_params
