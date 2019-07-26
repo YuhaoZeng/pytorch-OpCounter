@@ -84,7 +84,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     ops_list=[]
     memory_list=[]
     layer_type_list=[]
-    layer_count = 0
+    layer_count = []
     
     
     model.eval()
