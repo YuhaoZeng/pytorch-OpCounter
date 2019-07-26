@@ -80,7 +80,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             handler_collection.append(handler)
         
         #layer_count.append(1)
-        layer_count = 0
+        layer_count = layer_count + 1 
         ops_list.append(m.total_ops.item())
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
