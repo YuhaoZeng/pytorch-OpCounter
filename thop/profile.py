@@ -44,7 +44,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     ops_list=[]
     memory_list=[]
     layer_type_list=[]
-    layer_count = [1]
+    #layer_count = [1]
  
 
 
@@ -79,7 +79,8 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             handler = m.register_forward_hook(fn)
             handler_collection.append(handler)
         
-        layer_count.append(1)
+        #layer_count.append(1)
+        layer_count = 0
         ops_list.append(m.total_ops.item())
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
