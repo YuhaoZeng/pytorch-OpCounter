@@ -40,6 +40,14 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     if custom_ops is None:
         custom_ops = {}
 
+        
+    ops_list=[]
+    memory_list=[]
+    layer_type_list=[]
+    layer_count = []
+ 
+
+
     def add_hooks(m):
         if len(list(m.children())) > 0:
             return
@@ -79,13 +87,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
 
 
     # original_device = model.parameters().__next__().device
-    training = model.training
-
-    ops_list=[]
-    memory_list=[]
-    layer_type_list=[]
-    layer_count = []
-    
+    training = model.training   
     
     model.eval()
     model.apply(add_hooks)
