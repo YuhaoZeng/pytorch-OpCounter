@@ -24,7 +24,8 @@ def count_convNd(m, x, y):
     
     
     #memory
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size=1
     cin = x.size()[1]
     cout,out_h,out_w = y.size()[1:]
     mread = batch_size * (x.size()[1:].numel() + num_patams(m))
@@ -87,7 +88,8 @@ def count_convtranspose2d(m, x, y):
     m.total_ops = torch.Tensor([int(total_ops)])
     
     #memory
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     cin = x.size()[1]
     cout,out_h,out_w = y.size()[1:]
     mread = batch_size * (x.size()[1:].numel() + num_patams(m))
@@ -122,7 +124,8 @@ def count_relu(m, x, y):
     m.total_ops = torch.Tensor([int(total_ops)])
     
     #
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     mread = batch_size * x.size()[1:].numel()
     mwrite = batch_size * x.size()[1:].numel()
     
@@ -142,7 +145,8 @@ def count_softmax(m, x, y):
     m.total_ops = torch.Tensor([int(total_ops)])
     
     #
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     mread = batch_size * x.size()[1:].numel()
     mwrite = batch_size * y.size()[1:].numel()
     
@@ -159,7 +163,8 @@ def count_avgpool(m, x, y):
 
     m.total_ops = torch.Tensor([int(total_ops)])
     
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     mread = batch_size * x.size()[1:].numel()
     mwrite = batch_size * y.size()[1:].numel()
     
@@ -176,7 +181,8 @@ def count_adap_avgpool(m, x, y):
 
     m.total_ops = torch.Tensor([int(total_ops)])
     
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     mread = batch_size * x.size()[1:].numel()
     mwrite = batch_size * y.size()[1:].numel()
     
@@ -196,7 +202,8 @@ def count_linear(m, x, y):
     m.total_ops = torch.Tensor([int(total_ops)])
     
     ##
-    batch_size = x.size()[0]
+    #batch_size = x.size()[0]
+    batch_size = 1
     mread = batch_size * (x.size()[1:].numel() + num_params(m))
     mwrite = y.size().numel()
 
