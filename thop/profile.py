@@ -84,6 +84,13 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     total_params = 0
     total_memory = 0
     layer_count = 0
+    
+    ops_list=[]
+    memory_list=[]
+    layer_type_list=[]
+    
+    
+    print('{0:^8}{1:^20}{2:^15}{3:^15}{4:^15}'.format("number","layer_type","params","memory","flops"))
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
             continue
@@ -93,9 +100,14 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         total_memory += m.total_memory
         layer_out = int(m.out_features) if hasattr(m,'out_features') else 0
         
-        print('The No.%d layer:' % layer_count)
-        print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
-        print('The memory of this layer:%d' % int(m.total_memory))
+        ops_list.append(total_ops)
+        memory_list.append(total_params)
+        layer_type_list.append(layer_type_list)
+        
+        #print('The No.%d layer:' % layer_count)
+        #print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
+        #print('The memory of this layer:%d' % int(m.total_memory))
+        print('{0:8}{1:20}{2:15}{3:15}{4:15}'.format(layer_count,m.item(),m.total_params,m.total_memory,m.total_ops))
 
         
     total_ops = total_ops.item()
@@ -112,4 +124,4 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
     print('The Total Memory:',total_memory)
-    return total_ops, total_params
+    return total_ops, total_params,ops_list,memeory_list,layer_type_list
