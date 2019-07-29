@@ -31,7 +31,7 @@ def count_convNd(m, x, y):
     #mread = batch_size * (x.size()[1:].numel() + num_params(m))
     #mwrite = batch_size * cout * out_h * out_w
     #mread = x.element() + num_params
-    mread = num_params
+    mread = num_params(m)
     mwrite = output_elements
     
     m.total_memory = torch.Tensor([int(mread+mwrite)])
