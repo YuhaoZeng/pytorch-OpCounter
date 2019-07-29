@@ -39,7 +39,10 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     handler_collection = []
     if custom_ops is None:
         custom_ops = {}
-
+    
+    
+    file = fopen('data.txt','w')
+    file_sum = fopen('data_sum.txt','w')
         
     ops_list=[]
     memory_list=[]
@@ -91,8 +94,8 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
         print('{0:8}{1:80}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
-        with open('data.txt','w') as f:
-            f.write('{0:8}{1:80}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
+        
+        file.write('{0},{1},{2},{3},{4}\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
 
     # original_device = model.parameters().__next__().device
     training = model.training   
@@ -136,6 +139,8 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     total_ops = total_ops.item()
     total_params = total_params.item()
     total_memory = total_memory.item()
+    
+    file_sum.write('{0},{1},{2}'.format(total_ops,total_params,total_memory))
 
     # reset model to original status
     model.train(training)
@@ -147,4 +152,8 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     print('The Total Flops:',total_ops)
     print('The Total parameters:',total_params)
     print('The Total Memory:',total_memory)
+    
+    fclose(file)
+    fclose(file_sum)
+    
     return total_ops, total_params,ops_list,memory_list,layer_type_list
