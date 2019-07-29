@@ -95,7 +95,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         layer_type_list.append(str(m))
         print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
         
-        file.write('{0},{1},{2},{3},{4}\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
+        file.write('{0},{1},{2},{3},{4}\r\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
 
     # original_device = model.parameters().__next__().device
     training = model.training   
