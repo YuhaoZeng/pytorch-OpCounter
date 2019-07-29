@@ -27,7 +27,7 @@
         # your rule here
     
     input = torch.randn(1, 3, 224, 224)
-    flops, params = profile(model, inputs=(input, ), 
+    flops, params, memory,ops_list, memory_list, type_list  = profile(model, inputs=(input, ), 
                             custom_ops={YourModule: count_your_model})
     ```
     
