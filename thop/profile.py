@@ -71,11 +71,11 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             fn = register_hooks[m_type]
 
         if fn is None:
-            if verbose:
-                print("THOP has not implemented counting method for ", m)
+            #if verbose:
+            #    print("THOP has not implemented counting method for ", m)
         else:
-            if verbose:
-                print("Register FLOP counter for module %s" % str(m))
+            #if verbose:
+            #    print("Register FLOP counter for module %s" % str(m))
             handler = m.register_forward_hook(fn)
             handler_collection.append(handler)
         
@@ -84,7 +84,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         ops_list.append(m.total_ops.item())
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
-        print('{0:8}{1:15}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
+        print('{0:8}{1:40}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
 
 
     # original_device = model.parameters().__next__().device
@@ -104,7 +104,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
 
     
     
-    print('{0:^8}{1:^15}{2:^15}{3:^15}{4:^15}'.format("number","layer_type","params","memory","flops"))
+    print('{0:^8}{1:^40}{2:^15}{3:^15}{4:^15}'.format("number","layer_type","params","memory","flops"))
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
             continue
