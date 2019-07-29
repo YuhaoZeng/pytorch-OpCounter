@@ -41,8 +41,8 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         custom_ops = {}
     
     
-    file = fopen('data.txt','w')
-    file_sum = fopen('data_sum.txt','w')
+    file = open('data.txt','w')
+    file_sum = open('data_sum.txt','w')
         
     ops_list=[]
     memory_list=[]
@@ -153,7 +153,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     print('The Total parameters:',total_params)
     print('The Total Memory:',total_memory)
     
-    fclose(file)
-    fclose(file_sum)
+    file.close()
+    file_sum.close()
     
     return total_ops, total_params,ops_list,memory_list,layer_type_list
