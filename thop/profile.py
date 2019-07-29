@@ -162,4 +162,4 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     file.close()
     file_sum.close()
     
-    return total_ops, total_params,ops_list,memory_list,layer_type_list
+    return total_ops, total_params,total_memory,ops_list,memory_list,layer_type_list
