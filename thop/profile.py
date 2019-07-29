@@ -93,7 +93,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
         ops_list.append(m.total_ops.item())
         memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
-        print('{0:8}{1:80}{2:15}{3:15}{4:15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
+        print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
         
         file.write('{0},{1},{2},{3},{4}\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
 
@@ -101,7 +101,7 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     training = model.training   
     
     
-    print('{0:^8}{1:^80}{2:^15}{3:^15}{4:^15}'.format("number","layer_type","params","memory","flops"))
+    print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format("number","layer_type","params","memory","flops"))
     model.eval()
     model.apply(add_hooks)
 
