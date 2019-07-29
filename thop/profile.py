@@ -89,13 +89,13 @@ def profile(model, inputs, custom_ops=None, verbose=True):
             handler_collection.append(handler)
         
         #layer_count.append(1)
-        layer_count[0] = layer_count[0]+ 1 
-        ops_list.append(m.total_ops.item())
-        memory_list.append(m.total_params.item())
+        #layer_count[0] = layer_count[0]+ 1 
+        #ops_list.append(m.total_ops.item())
+        #memory_list.append(m.total_params.item())
         layer_type_list.append(str(m))
-        print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
+        #print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
         
-        file.write('{0},{1},{2},{3},{4}\r\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
+        #file.write('{0},{1},{2},{3},{4}\r\n'.format(int(layer_count[0]),str(m),m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
 
     # original_device = model.parameters().__next__().device
     training = model.training   
@@ -120,20 +120,26 @@ def profile(model, inputs, custom_ops=None, verbose=True):
     for m in model.modules():
         if len(list(m.children())) > 0:  # skip for non-leaf module
             continue
-        #layer_count = layer_count + 1
+        
         total_ops += m.total_ops
         total_params += m.total_params
         total_memory += m.total_memory
         layer_out = int(m.out_features) if hasattr(m,'out_features') else 0
         
-        #ops_list.append(m.total_ops.item())
-        #memory_list.append(m.total_params.item())
+        ops_list.append(m.total_ops.item())
+        memory_list.append(m.total_params.item())
         #layer_type_list.append(type(m))
+        type_name = layer_type_list[int(layer_count[0])]
+        layer_count[0]=layer_count[0]+1
+        
         
         #print('The No.%d layer:' % layer_count)
         #print('The type of this layer:%s, The parameters of this layer:%d, The output number of this layer:%d' % (type(m),int(m.total_params),layer_out))
         #print('The memory of this layer:%d' % int(m.total_memory))
         #print('{0:8}{1:20}{2:15}{3:15}{4:15}'.format(layer_count,m.total_params.item(),m.total_memory.item(),m.total_ops.item(),"100"))
+        print('{0:<8}{1:>80}{2:>15}{3:>15}{4:>15}'.format(int(layer_count[0]),type_name,m.total_params.item(),m.total_memory.item(),m.total_ops.item()))
+        
+        file.write('{0},{1},{2},{3},{4}\r\n'.format(int(layer_count[0]),type_name,m.total_params.item(),m.total_memory.item(),m.total_ops.item()) )
 
         
     total_ops = total_ops.item()
