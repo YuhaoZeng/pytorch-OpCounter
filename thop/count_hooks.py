@@ -11,11 +11,38 @@ def num_params(module):
 def count_convNd(m, x, y):
     x = x[0]
     cin = m.in_channels
+    kh,kw = m.kernel_size
+    if kh == kw:
+        kernel_size = int(kh)
+    else:
+        kernel_size = 0
+    stride = m.stride
     # batch_size = x.size(0)
 
     kernel_ops = m.weight.size()[2:].numel()
     bias_ops = 1 if m.bias is not None else 0
-    ops_per_element = kernel_ops + bias_ops
+    if stride == 1 and kernel_size == 3:
+        ops_per_element = kernel_ops * 16/36 + bias_ops
+    elif stride == 2 and kernel_size == 3:
+        ops_per_element = kernel_ops * 25/36 + bias_ops
+    elif stride == 1 and kernel_size == 5:
+        ops_per_element = kernel_ops * 73/100 + bias_ops
+    elif stride == 2 and kernel_size == 5:
+        ops_per_element = kernel_ops * 49/100 + bias_ops
+    elif stride == 1 and kernel_size == 7:
+        ops_per_element = kernel_ops * 100/196 + bias_ops
+    elif stride == 2 and kernel_size == 7:
+        ops_per_element = kernel_ops * 100/196 + bias_ops
+    elif stride == 1 and kernel_size == 9:
+        ops_per_element = kernel_ops * 144/324 + bias_ops
+    elif stride == 2 and kernel_size == 9:
+        ops_per_element = kernel_ops * 169/324 + bias_ops
+    elif stride == 1 and kernel_size == 11:
+        ops_per_element = kernel_ops * 225/484 + bias_ops
+    elif stride == 2 and kernel_size == 11:
+        ops_per_element = kernel_ops * 249/484 + bias_ops
+    else:
+        ops_per_element = kernel_ops + bias_ops
     output_elements = y.nelement()
 
     # cout x oW x oH
