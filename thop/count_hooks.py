@@ -11,6 +11,7 @@ def num_params(module):
 def count_convNd(m, x, y):
     x = x[0]
     cin = m.in_channels
+    stride = m.in_channels
     # batch_size = x.size(0)
 
     kernel_ops = m.weight.size()[2:].numel()
