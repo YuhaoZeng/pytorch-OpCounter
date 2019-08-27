@@ -23,23 +23,23 @@ def count_convNd(m, x, y):
     bias_ops = 1 if m.bias is not None else 0
     if stride == 1 and kernel_size == 3:
         ops_per_element = kernel_ops * 16/36 + bias_ops
-    else if stride == 2 and kernel_size == 3:
+    elif stride == 2 and kernel_size == 3:
         ops_per_element = kernel_ops * 25/36 + bias_ops
-    else if stride == 1 and kernel_size == 5:
+    elif stride == 1 and kernel_size == 5:
         ops_per_element = kernel_ops * 73/100 + bias_ops
-    else if stride == 2 and kernel_size == 5:
+    elif stride == 2 and kernel_size == 5:
         ops_per_element = kernel_ops * 49/100 + bias_ops
-    else if stride == 1 and kernel_size == 7:
+    elif stride == 1 and kernel_size == 7:
         ops_per_element = kernel_ops * 100/196 + bias_ops
-    else if stride == 2 and kernel_size == 7:
+    elif stride == 2 and kernel_size == 7:
         ops_per_element = kernel_ops * 100/196 + bias_ops
-    else if stride == 1 and kernel_size == 9:
+    elif stride == 1 and kernel_size == 9:
         ops_per_element = kernel_ops * 144/324 + bias_ops
-    else if stride == 2 and kernel_size == 9:
+    elif stride == 2 and kernel_size == 9:
         ops_per_element = kernel_ops * 169/324 + bias_ops
-    else if stride == 1 and kernel_size == 11:
+    elif stride == 1 and kernel_size == 11:
         ops_per_element = kernel_ops * 225/484 + bias_ops
-    else if stride == 2 and kernel_size == 11:
+    elif stride == 2 and kernel_size == 11:
         ops_per_element = kernel_ops * 249/484 + bias_ops
     else:
         ops_per_element = kernel_ops + bias_ops
